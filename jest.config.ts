@@ -1,19 +1,18 @@
-// jest.config.ts
+import type { Config } from "jest";
 
-import type { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+const config: Config = {
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
   moduleNameMapper: {
-    '\\.(css|scss)$': 'identity-obj-proxy',
-    '^@/(.*)$': '<rootDir>/src/$1',
+    // Support absolute imports if you ever re-enable aliases
+    "^@/(.*)$": "<rootDir>/src/$1",
+    // Mock CSS/SCSS imports
+    "\\.(css|scss)$": "identity-obj-proxy"
   },
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-  },
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+    "^.+\\.(ts|tsx)$": ["ts-jest", { tsconfig: "tsconfig.json" }]
+  }
 };
 
 export default config;
