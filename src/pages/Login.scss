@@ -1,0 +1,12 @@
+.login-form {
+  width: 400px;
+  margin: 0 auto;
+  background: $color-light;
+  padding: $spacing-lg;
+  border-radius: 8px;
+
+  @include respond(mobile) {
+    width: 90%;
+    padding: $spacing-md;
+  }
+}
