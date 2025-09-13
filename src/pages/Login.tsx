@@ -14,7 +14,8 @@ const Login: React.FC = () => {
   return (
     <div className="page page-login">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h1>Welcome</h1>
+        <h1>Welcome to</h1>
+        <h2>lendsqr</h2>
         <label>
           Email
           <input type="email" required />
