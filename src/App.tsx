@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-// ✅ Changed from "@/..." to relative imports
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
@@ -10,11 +9,18 @@ import Layout from "./components/Layout";
 const App = () => {
   return (
     <Routes>
+      {/* Redirect root to login */}
       <Route path="/" element={<Navigate to="/login" />} />
+
+      {/* Login route */}
       <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-      <Route path="/users" element={<Layout><Users /></Layout>} />
-      <Route path="/users/:id" element={<Layout><UserDetails /></Layout>} />
+
+      {/* All dashboard-related routes wrapped inside Layout */}
+      <Route path="/" element={<Layout />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="users" element={<Users />} />
+        <Route path="users/:id" element={<UserDetails />} />
+      </Route>
     </Routes>
   );
 };
