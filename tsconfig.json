@@ -5,6 +5,7 @@
     "lib": ["DOM", "ESNext"],
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
+    "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
