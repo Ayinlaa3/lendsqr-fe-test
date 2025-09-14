@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Button } from "../components/ui/Button";
 import "./NotFound.scss";
 
-const NotFound = () => {
+export const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -27,4 +27,3 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;

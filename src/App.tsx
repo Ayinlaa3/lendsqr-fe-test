@@ -1,30 +1,46 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// src/App.tsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Users } from "./pages/Users";
 import { UserDetails } from "./pages/UserDetails";
-import { NotFound } from "./pages/NotFound";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { NotFound } from "./pages/NotFound";
 
-const App = () => {
-  return (
+import "./styles/globals.scss";
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <Routes>
-        {/* Public route */}
-        <Route path="/" element={<Login />} />
+        {/* Public Routes */}
+        <Route path="/login" element={<Login />} />
 
-        {/* Protected routes */}
-        <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<UserDetails />} />
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="users/:id" element={<UserDetails />} />
         </Route>
 
-        {/* Catch-all route */}
+        {/* Catch-all route for 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  </QueryClientProvider>
+);
 
 export default App;
