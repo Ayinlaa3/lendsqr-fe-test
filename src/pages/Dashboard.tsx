@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Users, UserCheck, CreditCard, PiggyBank } from 'lucide-react';
 import { DashboardStats } from '../types';
 import { getDashboardStats } from '../utils/mockApi';
-import './styles/Dashboard.scss';
+import './Dashboard.scss';
 
 interface StatCardProps {
   icon: React.ComponentType<any>;

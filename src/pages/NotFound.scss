@@ -1,4 +1,7 @@
 // src/pages/NotFound.scss
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
 .not-found {
   display: flex;
   align-items: center;

@@ -14,7 +14,7 @@ import {
 import { User, FilterOptions } from '../types';
 import { getUsers } from '../utils/mockApi';
 import { useToast } from '../hooks/use-toast';
-import './styles/Users.scss';
+import './Users.scss';
 
 interface FilterPanelProps {
   isOpen: boolean;
