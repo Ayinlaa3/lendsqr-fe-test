@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { loginUser } from '../utils/mockApi';
 import { useToast } from '../use-toast';
+import './Login.scss';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
