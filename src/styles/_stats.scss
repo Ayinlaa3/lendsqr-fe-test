@@ -1,0 +1,42 @@
+// _stats.scss
+@import './globals.scss';
+
+.stat-card {
+  @include card-shadow;
+  background: white;
+  border-radius: 4px;
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    @include flex-center;
+    border-radius: 50%;
+    font-size: 20px;
+  }
+
+  .stat-content {
+    h3 {
+      font-size: 14px;
+      font-weight: $font-weight-medium;
+      color: #545F7D;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    p {
+      font-size: 24px;
+      font-weight: $font-weight-semibold;
+      color: $lendsqr-navy;
+    }
+  }
+}

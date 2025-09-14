@@ -1,0 +1,31 @@
+// src/pages/NotFound.scss
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: $gray-100;
+  text-align: center;
+  padding: $spacing-lg;
+
+  &__content {
+    max-width: 480px;
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: $spacing-md;
+    color: $primary-color;
+  }
+
+  &__description {
+    font-size: 1.25rem;
+    color: $text-muted;
+    margin-bottom: $spacing-md;
+  }
+
+  &__button {
+    text-decoration: none;
+  }
+}

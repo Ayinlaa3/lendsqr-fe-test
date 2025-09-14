@@ -1,27 +1,29 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Users from "./pages/Users";
-import UserDetails from "./pages/UserDetails";
-import Layout from "./components/Layout";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Login } from "./pages/Login";
+import { Dashboard } from "./pages/Dashboard";
+import { Users } from "./pages/Users";
+import { UserDetails } from "./pages/UserDetails";
+import { NotFound } from "./pages/NotFound";
+import { DashboardLayout } from "./components/layout/DashboardLayout";
 
 const App = () => {
   return (
-    <Routes>
-      {/* Redirect root to login */}
-      <Route path="/" element={<Navigate to="/login" />} />
+    <BrowserRouter>
+      <Routes>
+        {/* Public route */}
+        <Route path="/" element={<Login />} />
 
-      {/* Login route */}
-      <Route path="/login" element={<Login />} />
+        {/* Protected routes */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<UserDetails />} />
+        </Route>
 
-      {/* All dashboard-related routes wrapped inside Layout */}
-      <Route path="/" element={<Layout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="users" element={<Users />} />
-        <Route path="users/:id" element={<UserDetails />} />
-      </Route>
-    </Routes>
+        {/* Catch-all route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
