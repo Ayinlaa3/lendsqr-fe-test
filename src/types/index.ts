@@ -1,3 +1,5 @@
+// src/types/index.ts
+
 // Type definitions
 
 export interface User {

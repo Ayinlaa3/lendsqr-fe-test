@@ -1,0 +1,52 @@
+@import '../../styles/globals.scss';
+
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #FBFCFD;
+
+  &__sidebar {
+    transition: transform 0.3s ease;
+    @media (max-width: 768px) {
+      transform: translateX(-100%);
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 200;
+    }
+
+    &--open {
+      @media (max-width: 768px) {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__main {
+    flex: 1;
+    margin-left: 283px;
+    margin-top: 100px;
+    min-height: calc(100vh - 100px);
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+    }
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+}

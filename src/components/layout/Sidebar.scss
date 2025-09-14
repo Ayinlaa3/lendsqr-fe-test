@@ -1,0 +1,99 @@
+@import '../../styles/globals.scss';
+
+.dashboard-sidebar {
+  width: 283px;
+  height: 100vh;
+  background: white;
+  border-right: 1px solid #E6ECF2;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  padding-top: 100px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($lendsqr-teal, 0.3);
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba($lendsqr-teal, 0.5);
+    }
+  }
+
+  &__content {
+    padding: $spacing-md;
+  }
+
+  &__section-title {
+    margin: $spacing-lg 0 $spacing-sm 0;
+    span {
+      font-size: 12px;
+      font-weight: $font-weight-medium;
+      color: #545F7D;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  &__item {
+    @include flex-between;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #213F7D;
+    font-size: 16px;
+    font-weight: $font-weight-normal;
+    border-radius: 8px;
+    margin-bottom: 2px;
+    transition: all 0.2s ease;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+
+    &:hover {
+      background: rgba($lendsqr-teal, 0.1);
+      color: $lendsqr-teal;
+
+      .dashboard-sidebar__icon {
+        color: $lendsqr-teal;
+      }
+    }
+
+    &--active {
+      background: rgba($lendsqr-teal, 0.06);
+      color: $lendsqr-teal;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: -16px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: $lendsqr-teal;
+        border-radius: 0 2px 2px 0;
+      }
+
+      .dashboard-sidebar__icon {
+        color: $lendsqr-teal;
+      }
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+    color: #7A8CB1;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+}
