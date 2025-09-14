@@ -1,0 +1,37 @@
+@import '../../styles/globals';
+
+.table__wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  color: $lendsqr-navy;
+
+  &__header th {
+    text-align: left;
+    font-weight: $font-weight-medium;
+    padding: 0.75rem;
+    border-bottom: 1px solid #E6ECF2;
+    background: #F9FAFB;
+  }
+
+  &__body td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #E6ECF2;
+  }
+
+  &__row:hover {
+    background: rgba($lendsqr-teal, 0.04);
+  }
+
+  &__caption {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: #7A8CB1;
+    text-align: left;
+  }
+}
