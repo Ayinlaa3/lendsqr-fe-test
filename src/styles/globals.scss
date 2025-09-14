@@ -1,76 +1,11 @@
-// Lendsqr SCSS Global Styles
-// This file serves as the main SCSS entry point as required by the assessment
+// src/styles/globals.scss
 
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-// SCSS Variables for Lendsqr Brand
-$lendsqr-teal: #39CDCC;
-$lendsqr-navy: #213F7D;
-$lendsqr-light-blue: #E5F3FF;
-$lendsqr-pink: #DF18FF;
-$lendsqr-yellow: #F55F44;
-
-// Typography
-$font-family-base: 'Work Sans', sans-serif;
-$font-weight-light: 300;
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
-$font-weight-bold: 700;
-
-// Spacing
-$spacing-xs: 0.5rem;
-$spacing-sm: 1rem;
-$spacing-md: 1.5rem;
-$spacing-lg: 2rem;
-$spacing-xl: 3rem;
-
-// Mixins
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@mixin card-shadow {
-  box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
-}
-
-@mixin button-primary {
-  background: $lendsqr-teal;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: $font-weight-semibold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: darken($lendsqr-teal, 10%);
-    transform: translateY(-2px);
-  }
-}
-
-// Global Reset
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: $font-family-base;
-  font-weight: $font-weight-normal;
-  line-height: 1.5;
-  color: $lendsqr-navy;
-}
+// Import order matters!
+@import 'variables';
+@import 'mixins';
+@import 'reset';
 
 // Utility classes
 .text-teal { color: $lendsqr-teal; }
