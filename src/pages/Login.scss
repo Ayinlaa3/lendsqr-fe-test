@@ -17,6 +17,7 @@
   flex-direction: column;
   padding: $spacing-xl;
   position: relative;
+  background: white;
 
   @media (max-width: 768px) {
     padding: $spacing-md;
