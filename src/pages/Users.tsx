@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+// src/pages/Users.tsx
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { User } from '../types';
 import {
   Eye,
   UserX,
@@ -11,20 +13,67 @@ import {
   PiggyBank,
   Calendar,
 } from 'lucide-react';
-import { User, FilterOptions } from '../types';
+import { FilterOptions } from '../types';
 import { getUsers } from '../utils/mockApi';
 import { useToast } from '../hooks/use-toast';
 import './Users.scss';
 
 interface FilterPanelProps {
   isOpen: boolean;
+  anchorRef: React.RefObject<HTMLTableCellElement> | null;
   onClose: () => void;
   onFilter: (filters: FilterOptions) => void;
   onReset: () => void;
 }
 
-const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, onReset }) => {
+const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, anchorRef, onClose, onFilter, onReset }) => {
   const [filters, setFilters] = useState<FilterOptions>({});
+  const panelRef = useRef<HTMLDivElement | null>(null);
+
+  // Position panel below clicked header
+  useEffect(() => {
+    if (!isOpen) return;
+    const position = () => {
+      const panel = panelRef.current;
+      const anchor = anchorRef?.current;
+      if (!panel || !anchor) return;
+      const rect = anchor.getBoundingClientRect();
+      panel.style.position = 'absolute';
+      panel.style.top = `${rect.bottom + window.scrollY + 4}px`;
+      panel.style.left = `${rect.left + window.scrollX}px`;
+      panel.style.minWidth = `${Math.max(260, rect.width)}px`;
+      panel.style.zIndex = '1200';
+    };
+    position();
+    window.addEventListener('resize', position);
+    window.addEventListener('scroll', position, true);
+    return () => {
+      window.removeEventListener('resize', position);
+      window.removeEventListener('scroll', position, true);
+    };
+  }, [isOpen, anchorRef]);
+
+  // Close panel on outside click or Esc
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      const panel = panelRef.current;
+      const anchor = anchorRef?.current;
+      const target = e.target as Node;
+      if (panel && !panel.contains(target) && anchor && !anchor.contains(target)) {
+        onClose();
+      }
+    };
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [isOpen, anchorRef, onClose]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,12 +90,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
   if (!isOpen) return null;
 
   return (
-    <div className="filter-overlay" onClick={onClose}>
-      <div className="filter-panel" onClick={(e) => e.stopPropagation()}>
-        <form onSubmit={handleSubmit}>
+    <div className="filter-wrapper">
+      <div className="filter-panel" ref={panelRef}>
+        <form onSubmit={handleSubmit} className="filter-form">
+          {/* Organization */}
           <div className="filter-field">
-            <label>Organization</label>
+            <label htmlFor="organization">Organization</label>
             <select
+              id="organization"
               value={filters.organization || ''}
               onChange={(e) => setFilters({ ...filters, organization: e.target.value })}
             >
@@ -57,9 +108,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
             </select>
           </div>
 
+          {/* Username */}
           <div className="filter-field">
-            <label>Username</label>
+            <label htmlFor="username">Username</label>
             <input
+              id="username"
               type="text"
               placeholder="User"
               value={filters.username || ''}
@@ -67,9 +120,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
             />
           </div>
 
+          {/* Email */}
           <div className="filter-field">
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               placeholder="Email"
               value={filters.email || ''}
@@ -77,10 +132,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
             />
           </div>
 
+          {/* Date */}
           <div className="filter-field">
-            <label>Date</label>
+            <label htmlFor="date">Date</label>
             <div className="date-input-wrapper">
               <input
+                id="date"
                 type="date"
                 value={filters.date || ''}
                 onChange={(e) => setFilters({ ...filters, date: e.target.value })}
@@ -89,9 +146,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
             </div>
           </div>
 
+          {/* Phone Number */}
           <div className="filter-field">
-            <label>Phone Number</label>
+            <label htmlFor="phoneNumber">Phone Number</label>
             <input
+              id="phoneNumber"
               type="tel"
               placeholder="Phone Number"
               value={filters.phoneNumber || ''}
@@ -99,9 +158,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
             />
           </div>
 
+          {/* Status */}
           <div className="filter-field">
-            <label>Status</label>
+            <label htmlFor="status">Status</label>
             <select
+              id="status"
               value={filters.status || ''}
               onChange={(e) => setFilters({ ...filters, status: e.target.value as User['status'] })}
             >
@@ -113,6 +174,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
             </select>
           </div>
 
+          {/* Actions */}
           <div className="filter-actions">
             <button type="button" onClick={handleReset} className="reset-btn">
               Reset
@@ -129,8 +191,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, onClose, onFilter, on
 
 interface UserTableProps {
   users: User[];
-  onStatusChange: (userId: string, status: User['status']) => void;
-  onFilterToggle: (column: string) => void;
+  onStatusChange: (id: string, status: string) => void;
+  onFilterToggle: (ref: React.RefObject<HTMLTableCellElement>) => void;
 }
 
 const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterToggle }) => {
@@ -139,13 +201,13 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
   const getStatusBadgeClass = (status: User['status']) => {
     switch (status) {
       case 'Active':
-        return 'status-badge--active';
+        return 'status-active';
       case 'Inactive':
-        return 'status-badge--inactive';
+        return 'status-inactive';
       case 'Pending':
-        return 'status-badge--pending';
+        return 'status-pending';
       case 'Blacklisted':
-        return 'status-badge--blacklisted';
+        return 'status-blacklisted';
       default:
         return '';
     }
@@ -160,20 +222,56 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
       minute: '2-digit',
     });
 
+  // Column refs
+  const orgRef = useRef<HTMLTableCellElement>(null!);
+  const userRef = useRef<HTMLTableCellElement>(null!);
+  const emailRef = useRef<HTMLTableCellElement>(null!);
+  const phoneRef = useRef<HTMLTableCellElement>(null!);
+  const dateRef = useRef<HTMLTableCellElement>(null!);
+  const statusRef = useRef<HTMLTableCellElement>(null!);
+
   return (
     <div className="table-container">
       <table className="users-table">
         <thead>
           <tr>
-            {['organization', 'username', 'email', 'phoneNumber', 'date', 'status'].map((col) => (
-              <th key={col} onClick={() => onFilterToggle(col)}>
+            <th ref={orgRef} onClick={() => onFilterToggle(orgRef)}>
                 <div className="header-content">
-                  <span className="header-text">{col.toUpperCase()}</span>
-                  <Filter size={16} className="header-filter-icon" />
-                </div>
-              </th>
-            ))}
-            <th></th>
+                <span className="header-text">ORGANIZATION</span>
+                <Filter size={16} className="header-filter-icon" />
+              </div>
+            </th>
+            <th ref={userRef} onClick={() => onFilterToggle(userRef)}>
+              <div className="header-content">
+                <span className="header-text">USERNAME</span>
+                <Filter size={16} className="header-filter-icon" />
+              </div>
+            </th>
+            <th ref={emailRef} onClick={() => onFilterToggle(emailRef)}>
+              <div className="header-content">
+                <span className="header-text">EMAIL</span>
+                <Filter size={16} className="header-filter-icon" />
+              </div>
+            </th>
+            <th ref={phoneRef} onClick={() => onFilterToggle(phoneRef)}>
+              <div className="header-content">
+                <span className="header-text">PHONE NUMBER</span>
+                <Filter size={16} className="header-filter-icon" />
+              </div>
+            </th>
+            <th ref={dateRef} onClick={() => onFilterToggle(dateRef)}>
+              <div className="header-content">
+                <span className="header-text">DATE JOINED</span>
+                <Filter size={16} className="header-filter-icon" />
+              </div>
+            </th>
+            <th ref={statusRef} onClick={() => onFilterToggle(statusRef)}>
+              <div className="header-content">
+                <span className="header-text">STATUS</span>
+                <Filter size={16} className="header-filter-icon" />
+              </div>
+            </th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -193,9 +291,7 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
                 <div className="actions-dropdown">
                   <button
                     className="actions-btn"
-                    onClick={() =>
-                      setActiveDropdown(activeDropdown === user.id ? null : user.id)
-                    }
+                    onClick={() => setActiveDropdown(activeDropdown === user.id ? null : user.id)}
                   >
                     <MoreVertical size={16} />
                   </button>
@@ -234,6 +330,7 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
   );
 };
 
+// StatCard (unchanged)
 interface StatCardProps {
   icon: React.ComponentType<any>;
   title: string;
@@ -259,7 +356,7 @@ export const Users: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalUsers, setTotalUsers] = useState(0);
   const [filters, setFilters] = useState<FilterOptions>({});
-  const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const [activeFilterRef, setActiveFilterRef] = useState<React.RefObject<HTMLTableCellElement> | null>(null);
   const { toast } = useToast();
 
   const usersPerPage = 10;
@@ -286,26 +383,22 @@ export const Users: React.FC = () => {
     }
   };
 
-  const handleStatusChange = (userId: string, newStatus: User['status']) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user.id === userId ? { ...user, status: newStatus } : user
-      )
-    );
-
+  const handleStatusChange = (userId: string, newStatus: User["status"]) => {
+    setUsers((prev) => prev.map((u) => (u.id === userId ? { ...u, status: newStatus } : u)));
     const updatedUser = users.find((u) => u.id === userId);
     if (updatedUser) {
-      const userDetails = { ...updatedUser, status: newStatus };
-      localStorage.setItem(`user_${userId}`, JSON.stringify(userDetails));
+      localStorage.setItem(`user_${userId}`, JSON.stringify({ ...updatedUser, status: newStatus }));
     }
-
     toast({
       title: 'User status updated',
       description: `User has been ${newStatus.toLowerCase()}.`,
     });
   };
 
-  const handleFilterToggle = () => setShowFilterPanel(true);
+  const handleFilterToggle = (ref: React.RefObject<HTMLTableCellElement>) => {
+    setActiveFilterRef((prev) => (prev === ref ? null : ref));
+  };
+
   const handleFilter = (newFilters: FilterOptions) => {
     setFilters(newFilters);
     loadUsers();
@@ -320,7 +413,7 @@ export const Users: React.FC = () => {
     return (
       <div className="users-container">
         <div className="users-loading">
-          <div className="loading-spinner"></div>
+          <div className="loading-spinner" />
           <p>Loading users...</p>
         </div>
       </div>
@@ -347,10 +440,11 @@ export const Users: React.FC = () => {
           onFilterToggle={handleFilterToggle}
         />
 
-         <div className="pagination">
+        {/* Pagination */}
+        <div className="pagination">
           <div className="pagination-info">
             Showing{' '}
-            <select className="entries-select">
+            <select className="entries-select" defaultValue="100">
               <option>100</option>
               <option>50</option>
               <option>25</option>
@@ -381,15 +475,16 @@ export const Users: React.FC = () => {
               disabled={currentPage === totalPages}
               className="pagination-btn next-btn"
             >
-              →
+              → 
             </button>
           </div>
         </div>
       </div>
 
       <FilterPanel
-        isOpen={showFilterPanel}
-        onClose={() => setShowFilterPanel(false)}
+        isOpen={!!activeFilterRef}
+        anchorRef={activeFilterRef}
+        onClose={() => setActiveFilterRef(null)}
         onFilter={handleFilter}
         onReset={handleResetFilter}
       />
