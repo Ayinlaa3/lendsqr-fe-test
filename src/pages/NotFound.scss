@@ -1,34 +1,47 @@
 // src/pages/NotFound.scss
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import '../styles/globals.scss';
 
-.not-found {
+// Page container
+.notfound-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: $gray-100;
-  text-align: center;
+  background-color: $lendsqr-light-blue;
+  font-family: $font-family-base;
   padding: $spacing-lg;
+  text-align: center;
+}
 
-  &__content {
-    max-width: 480px;
-  }
+// Title (404 text)
+.notfound-title {
+  font-size: 6rem;
+  font-weight: $font-weight-bold;
+  color: $lendsqr-navy;
+  margin-bottom: $spacing-md;
+}
 
-  &__title {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: $spacing-md;
-    color: $primary-color;
-  }
+// Subtitle (message)
+.notfound-subtitle {
+  font-size: 1.5rem;
+  font-weight: $font-weight-medium;
+  color: $lendsqr-pink;
+  margin-bottom: $spacing-lg;
+}
 
-  &__description {
-    font-size: 1.25rem;
-    color: $text-muted;
-    margin-bottom: $spacing-md;
-  }
+// Back to Dashboard link
+.notfound-link {
+  display: inline-block;
+  padding: $spacing-sm $spacing-md;
+  background-color: $lendsqr-teal;
+  color: white;
+  text-decoration: none;
+  font-weight: $font-weight-semibold;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 
-  &__button {
-    text-decoration: none;
+  &:hover {
+    background-color: darken($lendsqr-teal, 10%);
   }
 }

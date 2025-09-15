@@ -1,6 +1,6 @@
 // Users page SCSS styles following Lendsqr design system
-@import '../../styles/globals.scss';
-@import '../../styles/stats'; 
+@import '../styles/globals.scss';
+@import '../styles/stats'; 
 
 .users-container {
   @extend .page-container; 

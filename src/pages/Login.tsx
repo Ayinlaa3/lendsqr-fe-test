@@ -1,9 +1,11 @@
+// src/pages/Login.tsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { loginUser } from "../utils/mockApi";
 import { useToast } from "../hooks/use-toast";
-import "./styles/Login.scss";
+import "./Login.scss";
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -48,10 +50,10 @@ export const Login: React.FC = () => {
     <div className="login__container">
       <div className="login__left">
         <div className="login__logo">
-          <img src="/logo.png" alt="Lendsqr" />
+          <img src="/lendsqr-logo.svg" alt="Lendsqr" />
         </div>
         <div className="login__illustration">
-          <img src="/login-illustration.png" alt="Login illustration" />
+          <img src="/pablo-sign-in 1.png" alt="Login illustration" />
         </div>
       </div>
 
