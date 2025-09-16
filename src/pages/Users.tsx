@@ -5,8 +5,8 @@ import { User } from '../types';
 import {
   Eye,
   UserX,
-  UserCheck,
-  Filter,
+  UserRoundCheck,
+  ListFilter,
   MoreVertical,
   Users as UsersIcon,
   CreditCard,
@@ -29,20 +29,20 @@ interface FilterPanelProps {
 const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, anchorRef, onClose, onFilter, onReset }) => {
   const [filters, setFilters] = useState<FilterOptions>({});
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 260 });
 
   // Position panel below clicked header
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !anchorRef?.current) return;
     const position = () => {
-      const panel = panelRef.current;
-      const anchor = anchorRef?.current;
-      if (!panel || !anchor) return;
+      const anchor = anchorRef.current!;
       const rect = anchor.getBoundingClientRect();
-      panel.style.position = 'absolute';
-      panel.style.top = `${rect.bottom + window.scrollY + 4}px`;
-      panel.style.left = `${rect.left + window.scrollX}px`;
-      panel.style.minWidth = `${Math.max(260, rect.width)}px`;
-      panel.style.zIndex = '1200';
+
+      setPosition({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + window.scrollX,
+        width: Math.max(260, rect.width), // at least 260px wide
+      });
     };
     position();
     window.addEventListener('resize', position);
@@ -90,7 +90,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, anchorRef, onClose, o
   if (!isOpen) return null;
 
   return (
-    <div className="filter-wrapper">
+    <div className="filter-wrapper"
+    ref={panelRef}
+      style={{
+        position: 'absolute',
+        top: position.top,
+        left: position.left,
+        minWidth: position.width,
+        zIndex: 1200,
+      }}>
       <div className="filter-panel" ref={panelRef}>
         <form onSubmit={handleSubmit} className="filter-form">
           {/* Organization */}
@@ -191,7 +199,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, anchorRef, onClose, o
 
 interface UserTableProps {
   users: User[];
-  onStatusChange: (id: string, status: string) => void;
+  onStatusChange: (id: string, status: 'Inactive' | 'Active' | 'Pending' | 'Blacklisted') => void;
   onFilterToggle: (ref: React.RefObject<HTMLTableCellElement>) => void;
 }
 
@@ -238,37 +246,37 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
             <th ref={orgRef} onClick={() => onFilterToggle(orgRef)}>
                 <div className="header-content">
                 <span className="header-text">ORGANIZATION</span>
-                <Filter size={16} className="header-filter-icon" />
+                <ListFilter size={16} className="header-filter-icon" />
               </div>
             </th>
             <th ref={userRef} onClick={() => onFilterToggle(userRef)}>
               <div className="header-content">
                 <span className="header-text">USERNAME</span>
-                <Filter size={16} className="header-filter-icon" />
+                <ListFilter size={16} className="header-filter-icon" />
               </div>
             </th>
             <th ref={emailRef} onClick={() => onFilterToggle(emailRef)}>
               <div className="header-content">
                 <span className="header-text">EMAIL</span>
-                <Filter size={16} className="header-filter-icon" />
+                <ListFilter size={16} className="header-filter-icon" />
               </div>
             </th>
             <th ref={phoneRef} onClick={() => onFilterToggle(phoneRef)}>
               <div className="header-content">
                 <span className="header-text">PHONE NUMBER</span>
-                <Filter size={16} className="header-filter-icon" />
+                <ListFilter size={16} className="header-filter-icon" />
               </div>
             </th>
             <th ref={dateRef} onClick={() => onFilterToggle(dateRef)}>
               <div className="header-content">
                 <span className="header-text">DATE JOINED</span>
-                <Filter size={16} className="header-filter-icon" />
+                <ListFilter size={16} className="header-filter-icon" />
               </div>
             </th>
             <th ref={statusRef} onClick={() => onFilterToggle(statusRef)}>
               <div className="header-content">
                 <span className="header-text">STATUS</span>
-                <Filter size={16} className="header-filter-icon" />
+                <ListFilter size={16} className="header-filter-icon" />
               </div>
             </th>
             <th />
@@ -278,8 +286,8 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
           {users.map((user) => (
             <tr key={user.id}>
               <td>{user.orgName}</td>
-              <td>{user.userName}</td>
-              <td>{user.email}</td>
+              <td>{user.fullName}</td>
+              <td>{user.officeEmail}</td>
               <td>{user.phoneNumber}</td>
               <td>{formatDate(user.dateJoined)}</td>
               <td>
@@ -316,7 +324,7 @@ const UserTable: React.FC<UserTableProps> = ({ users, onStatusChange, onFilterTo
                           setActiveDropdown(null);
                         }}
                       >
-                        <UserCheck size={14} /> Activate User
+                        <UserRoundCheck size={14} /> Activate User
                       </button>
                     </div>
                   )}
@@ -427,10 +435,10 @@ export const Users: React.FC = () => {
       </div>
 
       <div className="users-stats">
-        <StatCard icon={UsersIcon} title="Users" value={2453} iconClass="users" />
-        <StatCard icon={UserCheck} title="Active Users" value={2453} iconClass="active" />
-        <StatCard icon={CreditCard} title="Users with Loans" value={12453} iconClass="loans" />
-        <StatCard icon={PiggyBank} title="Users with Savings" value={102453} iconClass="savings" />
+        <StatCard icon={UsersIcon} title="Users" value={500} iconClass="users" />
+        <StatCard icon={UserRoundCheck} title="Active Users" value={125} iconClass="active" />
+        <StatCard icon={CreditCard} title="Users with Loans" value={350} iconClass="loans" />
+        <StatCard icon={PiggyBank} title="Users with Savings" value={400} iconClass="savings" />
       </div>
 
       <div className="users-content">

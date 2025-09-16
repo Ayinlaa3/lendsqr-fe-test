@@ -1,6 +1,6 @@
 // Dashboard.tsx
 import React, { useEffect, useState } from 'react';
-import { Users, UserCheck, CreditCard, PiggyBank } from 'lucide-react';
+import { Users, UserRoundCheck, CreditCard, PiggyBank } from 'lucide-react';
 import { DashboardStats } from '../types';
 import { getDashboardStats } from '../utils/mockApi';
 import './Dashboard.scss';
@@ -64,7 +64,7 @@ export const Dashboard: React.FC = () => {
       {stats && (
         <div className="stats-grid">
           <StatCard icon={Users} title="Users" value={stats.totalUsers} iconClass="users" />
-          <StatCard icon={UserCheck} title="Active Users" value={stats.activeUsers} iconClass="active" />
+          <StatCard icon={UserRoundCheck} title="Active Users" value={stats.activeUsers} iconClass="active" />
           <StatCard icon={CreditCard} title="Users with Loans" value={stats.usersWithLoans} iconClass="loans" />
           <StatCard icon={PiggyBank} title="Users with Savings" value={stats.usersWithSavings} iconClass="savings" />
         </div>

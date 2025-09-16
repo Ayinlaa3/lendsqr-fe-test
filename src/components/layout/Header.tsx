@@ -19,8 +19,8 @@ export const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
           <Menu size={24} />
         </button>
         <Link to="/dashboard" className="dashboard-header__logo">
-          <img src="/logo.png" alt="Lendsqr Logo" className="dashboard-header__logo-img" />
-        </Link>
+          <img src="/lendsqr-logo.svg" alt="Lendsqr" className="dashboard-header__logo-img" />
+        </Link> 
       </div>
 
       <div className="dashboard-header__center">
@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({ onMobileMenuToggle }) => {
 
         <div className="dashboard-header__profile">
           <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+            src="/user-avatar.png"
             alt="User avatar"
             className="dashboard-header__avatar"
           />

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
 import { loginUser } from "../utils/mockApi";
 import { useToast } from "../hooks/use-toast";
 import "./Login.scss";
@@ -25,7 +24,7 @@ export const Login: React.FC = () => {
         localStorage.setItem("isAuthenticated", "true");
         toast({
           title: "Login successful",
-          description: "Welcome to Lendsqr Admin Console",
+          description: "Welcome to Lendsqr Admin Panel",
         });
         navigate("/dashboard");
       } else {
@@ -77,24 +76,25 @@ export const Login: React.FC = () => {
             </div>
 
             <div className="login__form-group">
-              <div className="login__password-wrapper">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="login__input login__input--password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="login__password-toggle"
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-            </div>
+  <div className="login__password-wrapper">
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+      className="login__input login__input--password"
+    />
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="login__password-toggle"
+    >
+      {showPassword ? "HIDE" : "SHOW"}
+    </button>
+  </div>
+</div>
+
 
             <div className="login__forgot">
               <a href="#" className="login__forgot-link">

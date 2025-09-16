@@ -235,35 +235,13 @@
   }
 }
 
-// Filter Overlay
-// .filter-overlay {
-//   position: fixed;
-//   top: 0;
-//   left: 60px;
-//   right: 0;
-//   bottom: 0;
-//   background: rgba(0, 0, 0, 0.5);
-//   z-index: 1200;
-//   display: flex;
-//   justify-content: center;
-//   align-items: flex-start;
-//   padding-top: $spacing-lg;
-
-//   @media (max-width: 768px) {
-//     left: 0;
-//   }
-// }
-
-// .filterable-col {
-//   position: relative;
-// }
 
 .filter-wrapper {
   position: absolute;
-  top: 100%; /* directly below the header */
+  top: 100%;
   left: 0;
   z-index: 20;
-  width: max-content; /* auto-fit content */
+  width: max-content;
   display: flex;
   justify-content: flex-start;
 }
@@ -273,8 +251,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(33, 63, 125, 0.15);
   padding: $spacing-md;
-  width: 260px;
-  max-height: 70vh;
+  width: 300px;
+  max-height: 90vh;
   overflow-y: auto;
   animation: dropdown-fade 0.2s ease forwards;
 

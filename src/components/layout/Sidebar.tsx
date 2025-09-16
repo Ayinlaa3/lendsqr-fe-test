@@ -3,6 +3,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
+  BriefcaseBusiness,
+  ChevronDown,
   Home,
   Users,
   UserCheck,
@@ -28,9 +30,11 @@ interface SidebarItem {
   icon: React.ComponentType<any>;
   path?: string;
   isHeader?: boolean;
+  isSwitcher?: boolean;
 }
 
 const sidebarItems: SidebarItem[] = [
+  { title: 'Switch Organization', icon: BriefcaseBusiness, isSwitcher: true, path: '/switch-organization' },
   { title: 'Dashboard', icon: Home, path: '/dashboard' },
   { title: 'CUSTOMERS', icon: Users, isHeader: true },
   { title: 'Users', icon: Users, path: '/users' },
@@ -68,6 +72,16 @@ export const Sidebar: React.FC = () => {
             return (
               <div key={index} className="dashboard-sidebar__section-title">
                 <span>{item.title}</span>
+              </div>
+            );
+          }
+
+          if (item.isSwitcher) {
+            return (
+              <div className="dashboard-sidebar__switcher" key={index}>
+                <BriefcaseBusiness className="dashboard-sidebar__icon" size={16}/>
+                <span>{item.title}</span>
+                <ChevronDown />
               </div>
             );
           }

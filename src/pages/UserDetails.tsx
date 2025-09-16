@@ -90,7 +90,7 @@ export const UserDetails: React.FC = () => {
       <div className="user-details__header">
         <button
           onClick={() => navigate("/users")}
-          className="user-details__back-btn"
+          className="back-button"
         >
           <ArrowLeft size={16} /> Back to Users
         </button>
@@ -119,7 +119,7 @@ export const UserDetails: React.FC = () => {
           <div className="user-details__profile-info">
             <div className="user-details__avatar">
               <img
-                src={`https://ui-avatars.com/api/?name=${user.fullName}&background=39CDCC&color=fff&size=100`}
+                src="/lendr_avatar.png"
                 alt={user.fullName}
               />
             </div>
@@ -139,7 +139,7 @@ export const UserDetails: React.FC = () => {
           </div>
 
           <div className="user-details__account-balance">
-            <h3>{user.accountBalance}</h3>
+            <h3>{user.accountBalance}.00</h3>
             <p>
               {user.accountNumber}/{user.bank}
             </p>
@@ -225,12 +225,12 @@ export const UserDetails: React.FC = () => {
             <div className="user-details__item">
               <label>Monthly Income</label>
               <p>
-                {user.monthlyIncome[0]} - {user.monthlyIncome[1]}
+                {user.monthlyIncome[0]}.00 - {user.monthlyIncome[1]}.00
               </p>
             </div>
             <div className="user-details__item">
               <label>Loan Repayment</label>
-              <p>{user.loanRepayment}</p>
+              <p>{user.loanRepayment}.00</p>
             </div>
           </div>
         </div>
