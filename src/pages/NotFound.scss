@@ -1,4 +1,5 @@
 // src/pages/NotFound.scss
+@use "sass:color";
 @import '../styles/globals.scss';
 
 // Page container
@@ -42,6 +43,6 @@
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: darken($lendsqr-teal, 10%);
+    background-color: color.adjust($lendsqr-teal, $lightness: -10%);
   }
 }

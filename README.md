@@ -1,69 +1,106 @@
-# React + TypeScript + Vite
+# Lendsqr Frontend Engineering Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my implementation of the Lendsqr frontend engineering assessment.  
+The project was built using *React + TypeScript + SCSS* with mock APIs and unit testing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Login Page** – Authentication UI (mock login via `mockApi.ts`)
+- **Dashboard** – Overview layout (sidebar, top navigation, widgets)
+- **Users Page** – Paginated users table with filtering and status badges
+- **User Details Page** – Full profile details pulled from mock API, persisted via `localStorage`
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
+- **React (Vite + TS)** – Frontend framework
+- **SCSS** – Styles with variables & mixins for responsive design
+- **React Router** – Navigation between pages
+- **Vitest + React Testing Library** – Unit testing for components and API flows
+- **Mock API (`src/utils/mockApi.ts`)** – Generates 500 users and exposes async functions
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/
+├── hooks/         # Use Toasts
+├── components/    # Reusable Layout/UI components (DashboardLayout, Sidebar, Table, etc.)
+├── pages/         # Login, Dashboard, Users, UserDetails
+├── styles/        # SCSS partials and global styles
+├── tests/         # Vitest unit tests
+├── utils/         # mockApi.ts and helpers
+├── types/         # Type definitions
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Setup & Running Locally
+
+# Clone the repository
+git clone https://github.com/<your-username>/lendsqr-fe-test.git
+cd lendsqr-fe-test
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Run unit tests
+npm run test
+
+---
+
+## Deployment
+
+The app is deployed on Vercel
+👉 [Live Demo Link](https://<your-name>-lendsqr-fe-test.vercel.app)
+
+---
+
+## Testing
+
+* Tests are written with Vitest + React Testing Library.
+* Covered pages: Login, Users, User Details.
+* Includes positive and negative scenarios.
+
+Run tests with:
+
+npm run test
+
+---
+
+## Responsiveness
+
+* Designed to match the Figma pixel-perfect layouts.
+* Fully responsive across desktop, tablet, and mobile breakpoints using SCSS media queries.
+
+---
+
+## Notes
+
+* Instead of external tools like json-server, I used a custom mockApi.ts for this project for simplicity and better test control.
+
+---
+
+## Assessment Requirements Checklist
+
+* [-] 4 Pages implemented (Login, Dashboard, Users, User Details)
+* [-] Mock API with 500 users
+* [-] LocalStorage persistence
+* [-] SCSS styling
+* [-] Mobile responsive
+* [-] Unit testing with Vitest
+* [-] Deployment + Public Repo
+
+---
+
+## Author
+
+Ahmed Ayinla
+Frontend Engineer Candidate @ Lendsqr
+
+
+---

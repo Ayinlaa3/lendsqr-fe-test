@@ -1,4 +1,5 @@
 // Users page SCSS styles following Lendsqr design system
+@use "sass:color";
 @import '../styles/globals.scss';
 @import '../styles/stats'; 
 
@@ -313,7 +314,7 @@
       background: none;
       border: 1px solid $lendsqr-light-blue;
       border-radius: 8px;
-      color: darken($lendsqr-navy, 10%);
+      color: color.adjust($lendsqr-navy, $lightness: -10%);
       font-size: 14px;
       font-weight: $font-weight-semibold;
       cursor: pointer;
@@ -338,7 +339,7 @@
       transition: all 0.2s ease;
 
       &:hover {
-        background: darken($lendsqr-teal, 10%);
+        background: color.adjust($lendsqr-teal, $lightness: -10%);
       }
     }
   }

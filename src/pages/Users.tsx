@@ -52,8 +52,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ isOpen, anchorRef, onClose, o
       window.removeEventListener('scroll', position, true);
     };
   }, [isOpen, anchorRef]);
-
-  // Close panel on outside click or Esc
+  
+  // Close on outside click or Esc
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (e: MouseEvent) => {

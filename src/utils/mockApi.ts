@@ -1,6 +1,6 @@
 // src/utils/mockApi.ts
 
-import { User, DashboardStats } from '@/types';
+import { User, DashboardStats } from '../types';
 
 const organizations = ['Lendsqr', 'Irorun', 'Lendstar', 'Supercash', 'SnapCash', 'Paycient'];
 const banks = ['GTBank', 'Access Bank', 'First Bank', 'Zenith Bank', 'UBA', 'Ecobank'];

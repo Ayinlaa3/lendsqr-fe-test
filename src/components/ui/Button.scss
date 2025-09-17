@@ -16,7 +16,7 @@
     background: $lendsqr-teal;
     color: white;
     &:hover {
-      background: darken($lendsqr-teal, 10%);
+      background: color.adjust($lendsqr-teal, $lightness: -10%);
       transform: translateY(-1px);
     }
   }
@@ -25,7 +25,7 @@
     background: $lendsqr-light-blue;
     color: $lendsqr-navy;
     &:hover {
-      background: darken($lendsqr-light-blue, 5%);
+      background: color.adjust($lendsqr-light-blue, $lightness: -5%);
     }
   }
 
@@ -53,7 +53,7 @@
     padding: 0;
     border: none;
     &:hover {
-      color: darken($lendsqr-teal, 10%);
+      color: color.adjust($lendsqr-teal, $lightness: -10%);
     }
   }
 
@@ -61,7 +61,7 @@
     background: $lendsqr-pink;
     color: white;
     &:hover {
-      background: darken($lendsqr-pink, 10%);
+      background: color.adjust($lendsqr-pink, $lightness: -10%);
     }
   }
 
