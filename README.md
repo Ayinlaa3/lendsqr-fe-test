@@ -1,15 +1,15 @@
 # Lendsqr Frontend Engineering Test
 
 This is my implementation of the Lendsqr frontend engineering assessment.  
-The project was built using *React + TypeScript + SCSS* with mock APIs and unit testing.
+The project was built using **React + TypeScript + SCSS** with mock APIs and unit testing.
 
 ---
 
 ## Features
 - **Login Page** – Authentication UI (mock login via `mockApi.ts`)
-- **Dashboard** – Overview layout (sidebar, top navigation, widgets)
+- **Dashboard** – Overview layout (sidebar, header, statcards)
 - **Users Page** – Paginated users table with filtering and status badges
-- **User Details Page** – Full profile details pulled from mock API, persisted via `localStorage`
+- **User Details Page** – Full profile details pulled from mock API.
 
 ---
 
@@ -39,7 +39,7 @@ src/
 ## Setup & Running Locally
 
 # Clone the repository
-git clone https://github.com/<your-username>/lendsqr-fe-test.git
+git clone https://github.com/ayinlaa3/lendsqr-fe-test.git
 cd lendsqr-fe-test
 
 # Install dependencies
@@ -89,7 +89,6 @@ npm run test
 
 * [-] 4 Pages implemented (Login, Dashboard, Users, User Details)
 * [-] Mock API with 500 users
-* [-] LocalStorage persistence
 * [-] SCSS styling
 * [-] Mobile responsive
 * [-] Unit testing with Vitest
@@ -100,7 +99,6 @@ npm run test
 ## Author
 
 Ahmed Ayinla
-Frontend Engineer Candidate @ Lendsqr
-
+Prospective Frontend Engineer @ Lendsqr
 
 ---

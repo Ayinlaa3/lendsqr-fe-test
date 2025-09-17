@@ -76,25 +76,24 @@ export const Login: React.FC = () => {
             </div>
 
             <div className="login__form-group">
-  <div className="login__password-wrapper">
-    <input
-      type={showPassword ? "text" : "password"}
-      placeholder="Password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      required
-      className="login__input login__input--password"
-    />
-    <button
-      type="button"
-      onClick={() => setShowPassword(!showPassword)}
-      className="login__password-toggle"
-    >
-      {showPassword ? "HIDE" : "SHOW"}
-    </button>
-  </div>
-</div>
-
+              <div className="login__password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="login__input login__input--password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="login__password-toggle"
+                >
+                  {showPassword ? "HIDE" : "SHOW"}
+                </button>
+              </div>
+            </div>
 
             <div className="login__forgot">
               <a href="#" className="login__forgot-link">

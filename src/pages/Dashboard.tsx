@@ -1,9 +1,9 @@
 // Dashboard.tsx
-import React, { useEffect, useState } from 'react';
-import { Users, UserRoundCheck, CreditCard, PiggyBank } from 'lucide-react';
-import { DashboardStats } from '../types';
-import { getDashboardStats } from '../utils/mockApi';
-import './Dashboard.scss';
+import React, { useEffect, useState } from "react";
+import { Users, UserRoundCheck, CreditCard, PiggyBank } from "lucide-react";
+import { DashboardStats } from "../types";
+import { getDashboardStats } from "../utils/mockApi";
+import "./Dashboard.scss";
 
 interface StatCardProps {
   icon: React.ComponentType<any>;
@@ -12,7 +12,12 @@ interface StatCardProps {
   iconClass: string;
 }
 
-const StatCard: React.FC<StatCardProps> = ({ icon: Icon, title, value, iconClass }) => (
+const StatCard: React.FC<StatCardProps> = ({
+  icon: Icon,
+  title,
+  value,
+  iconClass,
+}) => (
   <div className="stat-card">
     <div className={`stat-icon ${iconClass}`}>
       <Icon size={20} />
@@ -34,7 +39,7 @@ export const Dashboard: React.FC = () => {
         const data = await getDashboardStats();
         setStats(data);
       } catch (error) {
-        console.error('Failed to load dashboard stats:', error);
+        console.error("Failed to load dashboard stats:", error);
       } finally {
         setLoading(false);
       }
@@ -63,10 +68,30 @@ export const Dashboard: React.FC = () => {
 
       {stats && (
         <div className="stats-grid">
-          <StatCard icon={Users} title="Users" value={stats.totalUsers} iconClass="users" />
-          <StatCard icon={UserRoundCheck} title="Active Users" value={stats.activeUsers} iconClass="active" />
-          <StatCard icon={CreditCard} title="Users with Loans" value={stats.usersWithLoans} iconClass="loans" />
-          <StatCard icon={PiggyBank} title="Users with Savings" value={stats.usersWithSavings} iconClass="savings" />
+          <StatCard
+            icon={Users}
+            title="Users"
+            value={stats.totalUsers}
+            iconClass="users"
+          />
+          <StatCard
+            icon={UserRoundCheck}
+            title="Active Users"
+            value={stats.activeUsers}
+            iconClass="active"
+          />
+          <StatCard
+            icon={CreditCard}
+            title="Users with Loans"
+            value={stats.usersWithLoans}
+            iconClass="loans"
+          />
+          <StatCard
+            icon={PiggyBank}
+            title="Users with Savings"
+            value={stats.usersWithSavings}
+            iconClass="savings"
+          />
         </div>
       )}
 
