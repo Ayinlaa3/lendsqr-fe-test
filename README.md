@@ -39,7 +39,7 @@ src/
 ## Setup & Running Locally
 
 # Clone the repository
-git clone https://github.com/ayinlaa3/lendsqr-fe-test.git
+git clone https://github.com/Ayinlaa3/lendsqr-fe-test.git
 cd lendsqr-fe-test
 
 # Install dependencies
@@ -56,7 +56,7 @@ npm run test
 ## Deployment
 
 The app is deployed on Vercel
-👉 [Live Demo Link](https://<your-name>-lendsqr-fe-test.vercel.app)
+👉 [Live Demo Link](https://lendsqr-fe-test-wine.vercel.app)
 
 ---
 
@@ -90,9 +90,9 @@ npm run test
 * [-] 4 Pages implemented (Login, Dashboard, Users, User Details)
 * [-] Mock API with 500 users
 * [-] SCSS styling
-* [-] Mobile responsive
+* [-] Mobile responsiveness
 * [-] Unit testing with Vitest
-* [-] Deployment + Public Repo
+* [-] Deployment and Public Repo
 
 ---
 
